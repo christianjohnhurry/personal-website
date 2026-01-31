@@ -27,3 +27,15 @@ main {
     max-width: 700px;
     margin: 0 auto; /* 0=no top/bottom margin. auto means split remianing horizontal space equally on left and right*/
 }
+
+a { /* This targets all anchor links */
+    color: #6eb5ff;
+}
+
+a:hover {
+    color: #a0d0ff;
+}
+
+a:visited {
+    color: #9900ff
+}
