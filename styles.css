@@ -16,5 +16,6 @@ selector {
 
 body {
     background-color: #1a1a2e;
-    color: #eaeaea
+    color: #eaeaea;
+    font-family: 'Inter', sans-serif;
 }
