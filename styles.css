@@ -22,3 +22,8 @@ body {
     padding: 40px 20px; /* top-bottom, then left-right */
     line-height: 1.6;
 }
+
+main {
+    max-width: 700px;
+    margin: 0 auto; /* 0=no top/bottom margin. auto means split remianing horizontal space equally on left and right*/
+}
