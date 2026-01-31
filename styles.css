@@ -1,3 +1,19 @@
+/*
+This is a Cascading Style Sheets file. It controls how html files look when viewed in 
+a browser. This includes:
+ - Fonts
+ - Colors
+ - Spacing
+ - Layout
+
+It works by targetting elements of the html file, and applying rules to these elements. 
+The syntax is as follows
+
+selector { 
+    property: value;
+}
+ */
+
 body {
     background-color: #1a1a2e;
     color: #eaeaea
