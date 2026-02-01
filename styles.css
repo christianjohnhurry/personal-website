@@ -85,3 +85,24 @@ section {
     background-color: rgba(26,26,46,0.8);
     border-radius: 10px;
 }
+
+
+#reseed-button {
+    /* pin to bottom right corner */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: rgba(26,26,46,0.85);
+    color: #6eb5ff;
+    border: 1px solid #6eb5ff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    z-index: 1;
+}
+
+#reseed-button:hover {
+    background-color: #6eb5ff;
+    color: #1a1a2e;
+}

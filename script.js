@@ -118,6 +118,20 @@ function update(){
     drawCells();
 }
 
+//Reseed: sprinkle random new cells 
+document.getElementById('reseed-button').addEventListener('click',function(){
+    for (let y=0; y <rows; y++){
+        for (let x = 0; x <cols; x++){
+            if (Math.random() < prob_init_alive){
+                grid[y][x] = 1;
+            } else {
+                grid[y][x] =0;
+            }
+        }
+    }
+    update();
+});
+
 window.addEventListener('scroll',function(){
     let scrollDelta = window.scrollY - lastScrollY; 
     lastScrollY = window.scrollY;
