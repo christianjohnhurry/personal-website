@@ -54,6 +54,11 @@ nav {
     z-index: 1;
 }
 
+.banner {
+    max-width: 100%;
+    height: auto;
+}
+
 #game-of-life {
     position: fixed; /* keeps graphic in place while scrolling */
     top: 0;
