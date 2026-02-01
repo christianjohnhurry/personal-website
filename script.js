@@ -132,6 +132,36 @@ document.getElementById('reseed-button').addEventListener('click',function(){
     update();
 });
 
+//Fade sections in/out based on position in viewport
+function updateFade() {
+    const elements = document.querySelectorAll('h1,section');
+    const vh = window.innerHeight;
+    const fadeDistance = vh * 0.3; // fading occurs of 30% of screen height
+
+    elements.forEach(function(el){
+        const rect = el.getBoundingClientRect(); //where each element is now
+
+        //Fade in: ramps 0 -> 1 as element enters from bottom 
+        let fadeIn = 1;
+
+        if (rect.top > vh) { // if still below screen, don't fade in
+            fadeIn = 0;
+        } else if (rect.top > vh - fadeDistance) {
+            fadeIn = (vh - rect.top)/fadeDistance
+        }
+
+        //Fade out: ramps from 1->0 as element exits from top
+        let fadeOut = 1;
+        if (rect.bottom <0) {
+            fadeOut = 0;
+        } else if (rect.bottom < fadeDistance) {
+            fadeOut = rect.bottom / fadeDistance;
+        }
+
+        el.style.opacity = Math.min(fadeIn,fadeOut)
+    });
+}
+
 window.addEventListener('scroll',function(){
     let scrollDelta = window.scrollY - lastScrollY; 
     lastScrollY = window.scrollY;
@@ -144,7 +174,9 @@ window.addEventListener('scroll',function(){
     }
 
     update(); 
+    updateFade();
 
 });
 
 update(); //draw initial state
+updateFade(); //set initial opacity so h1 visible on page load
