@@ -22,38 +22,45 @@
     <main>
         <h1>Christian John Hurry</h1> <!-- h1 means first level heading -->
 
-        <section id="about"> <!-- css can target with #about {...}, links can jump to this via href="#about" -->
-            <h2>About Me</h2> <!-- h2 means second level heading -->
-            <p>I'm CJ Hurry.</p>
-            <p>I'm a theoretical physicist by training. Machine learning engineer in biotech by trade. Improvisational comedian by night. Guitar player always. </p>
-        </section>
-
+        <div class="sticky-wrapper">
+            <section id="about"> <!-- css can target with #about {...}, links can jump to this via href="#about" -->
+                <h2>About Me</h2> <!-- h2 means second level heading -->
+                <p>I'm CJ Hurry.</p>
+                <p>I'm a theoretical physicist by training. Machine learning engineer in biotech by trade. Improvisational comedian by night. Guitar player always. </p>
+            </section>
+        </div>
         
-        <section id="publications">
-            <h2>Publications</h2>
-            <ul> <!-- unordered list --> 
-                <li>
-                    <a href="https://iopscience.iop.org/article/10.1088/1751-8121/ac9165/meta"> Dynamics of sparse Boolean networks with multi-node and self-interactions</a>
-                    <p> Hurry, C.J., Mozeika, A, Annibale, A - Jorunal of Physics A, 2022 </p>
-                </li>
+        <div class="sticky-wrapper">
+            <section id="publications">
+                <h2>Publications</h2>
+                <ul> <!-- unordered list --> 
+                    <li>
+                        <a href="https://iopscience.iop.org/article/10.1088/1751-8121/ac9165/meta"> Dynamics of sparse Boolean networks with multi-node and self-interactions</a>
+                        <p> Hurry, C.J., Mozeika, A, Annibale, A - Jorunal of Physics A, 2022 </p>
+                    </li>
 
-            </ul>
-        </section>
+                </ul>
+            </section>
+        </div>
 
-        <section id="cv">
-            <h2> CV </h2>
-            <p>If you would like to have a more complete picture of my qualifications and employment history, please download a copy of my cv:</p>
-            <a href="cv.pdf" download>Latest CV (PDF)</a>
-        </section>
-
-        <section id="interests">
-            <h2>Personal Interests</h2>
-            <ul>
-                <li><strong>Improv Comedy</strong> - I perform improv comedy regularly with the award winning troupe Scamps!</li>
-                <li><strong> Guitar</strong> - I am a fingerstyle guitar player, playing acoustic guitar</li>
-                <li><strong> Physics </strong> - I am still fundamentally a physicist by training, and continue to stay invested in the field.</li>
-            </ul>
-        </section>
+        <div class="sticky-wrapper">
+            <section id="cv">
+                <h2> CV </h2>
+                <p>If you would like to have a more complete picture of my qualifications and employment history, please download a copy of my cv:</p>
+                <a href="cv.pdf" download>Latest CV (PDF)</a>
+            </section>
+        </div>
+        
+        <div class="sticky-wrapper">
+            <section id="interests">
+                <h2>Personal Interests</h2>
+                <ul>
+                    <li><strong>Improv Comedy</strong> - I perform improv comedy regularly with the award winning troupe Scamps!</li>
+                    <li><strong> Guitar</strong> - I am a fingerstyle guitar player, playing acoustic guitar</li>
+                    <li><strong> Physics </strong> - I am still fundamentally a physicist by training, and continue to stay invested in the field.</li>
+                </ul>
+            </section>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>
