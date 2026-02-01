@@ -16,7 +16,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // cell sixe in pixels
-const cellSize = window.innerWidth < 600 ? 6 : 10;
+const cellSize = window.innerWidth < 600 ? 4 : 10;
 
 
 // How many cells fit page 
