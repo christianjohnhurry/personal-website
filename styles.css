@@ -57,3 +57,17 @@ nav a {
     height: 100%;
     z-index: -1; /* Places graphic behind content, negative = further back */
 }
+
+/* Hero - title at top of the page */
+h1 {
+    text-align: center;
+    font-size: 3em;
+    margin-top: 30vh;
+    margin-bottom: 10px;
+}
+
+/* space between sections */
+section {
+    margin-top: 60px;
+    padding-top: 20px;
+}
