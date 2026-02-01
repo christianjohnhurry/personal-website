@@ -1,11 +1,11 @@
 // This JavaScript file is used to generate Conway's Game of Life as 
 // a background graphic
 
-//Rules
+//Rules (HighLife varian - B36/S23)
 // 1. Underpopulation - cell with less than 2 neighbours dies 
 // 2. Living - cell with 2 or 3 live neighbours lives on 
 // 3. Overpopulation - Cell with more than 3 live neighbours dies 
-// 4. Reproduction - a dead cell with 3 neighbours becomes alive 
+// 4. Reproduction - a dead cell with 3 or 6 neighbours becomes alive 
 
 // get canvas element from html file, set up for drawing 
 const canvas = document.getElementById('game-of-life');
@@ -16,7 +16,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // cell sixe in pixels
-const cellSize = 20;
+const cellSize = 10;
 
 
 // How many cells fit page 
@@ -100,7 +100,7 @@ function nextGeneration() {
             if (grid[y][x] ===1) {
                 newGrid[y][x] = (neighbours ===2 || neighbours===3) ? 1 : 0;
             } else{
-                newGrid[y][x] = (neighbours===3) ? 1 : 0;
+                newGrid[y][x] = (neighbours===3 || neighbours ===6) ? 1 : 0;
             }
         }
     }
