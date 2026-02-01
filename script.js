@@ -16,7 +16,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // cell sixe in pixels
-const cellSize = 20;
+const cellSize = 5;
 
 
 // How many cells fit page 
@@ -59,8 +59,6 @@ function drawGrid() {
     }
 }
 
-drawGrid();
-
 
 function drawCells() {
     for (let y = 0; y < rows; y++) {
@@ -72,8 +70,6 @@ function drawCells() {
         }
     }
 }
-
-drawCells();
 
 
 //how many of 8 surrounding cells are alive?
@@ -106,7 +102,18 @@ function nextGeneration() {
             } else{
                 newGrid[y][x] = (neighbours===3) ? 1 : 0;
             }
-            }
         }
-        grid = newGrid; 
     }
+    grid = newGrid; 
+}
+
+//Main loop - runs ever 200 milliseconds
+const update_every_ms = 200;
+function update() {
+    ctx.clearRect(0,0,canvas.width,canvas.height); 
+    nextGeneration();
+    drawGrid();
+    drawCells();
+}
+
+setInterval(update,update_every_ms)
