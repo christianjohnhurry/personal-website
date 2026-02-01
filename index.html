@@ -30,14 +30,18 @@
                 <p> I hold a PhD in Applied Mathematics from King's College London, specialising in the physics of disordered and complex systems. Broadly speaking, these are systems 
                     comprised of many individual components, that each interact with a seemingly random subset of the system. Complex systems are known for displaying
                 complex system wide behaviour, even when the dynamics of each individual is quite simple. </p>
-                <p>The background of this webpage is Conway's Game of Life, a 
-                    famous example of a cellular automaton, mimicking evolution.</p>
+                <p>My PhD focussed on deriving equations that describe such systems including: the dynamics of cells in the immune response to cancer, 
+                    the spread of epidemics in human populations, and gene regulatory networks that govern the dynamics of cells.
+                </p>
             </section>
         </div>
 
         <div class="sticky-wrapper">
             <section id="gol">
                 <h2>The Game of Life</h2>
+                <p>The background of this webpage is Conway's Game of Life, a 
+                    famous example of a cellular automaton, mimicking evolution. 
+                This toy model demonstrates how many individuals following simple rules, lead to unexpected behaviour.</p>
                 <p>
                     The Game of Life works as follows:
                     <ul>
@@ -47,19 +51,23 @@
                         <li>
                             Each cell is either alive (=1) or dead (=0)
                         </li>
-                        <li>Underpopulation - cell with less than 2 neighbours dies </li>
-                        <li>Living - cell with 2 or 3 live neighbours lives on </li>
-                        <li>Overpopulation - Cell with more than 3 live neighbours dies </li>
-                        <li>Reproduction - a dead cell with 3 or 6 neighbours becomes alive </li>
+                        <li>Cells with less than 2 neighbours dies - <i>underpopulation</i> </li>
+                        <li>Cells with 2 or 3 live neighbours live on - <i>survival</i></li>
+                        <li>Cells with more than 3 live neighbours die - <i>overpopulation</i></li>
+                        <li>A dead cell with 3 or 6 neighbours becomes alive - <i>reproduction</i> </li>
                     </ul>
-                    When the website is first loaded, we flip a weighted coin with a 30% chance of landing on heads
-                    for every cell in the grid. If it lands on heads, the cell is set to <i>alive</i>. As you scroll
-                    down the webpage, we follow the above rules, and update the grid to reflect the changes in the population.
-                </p>
+                    <p>When the website is first loaded, we flip a coin for each cell in the grid, if it lands on heads, the cell is set to <i>alive</i>.
+                    The coin is weighted to give only a 30% chance of heads, leaving many cells empty. </p> 
+                    <p>As you scroll down the webpage, we take the current state of the grid, and apply the above rules to compute a new grid of cells.
+                       We replace the old grid with the new one, reflecting the change in the population.
+                    </p>
                 <p>
-                    I have included a button to reset the game - but the cells are initialised with the same weighted coin, 
-                    and the chance of you finding the same initialisation are essentially zero. You will see how with each press of the 
-                    button, the population changes in ways that look different each time. 
+                    I have included a button to reset the game - the same coin is used to initialise the cells, and the 
+                    chance of you landing on the same configuration are essentially <i>zero</i>. Press it a few times, and then 
+                    scroll around, to see the unpredictable dynamics that just 4 simple rules leads to. 
+                </p>
+                <p> If 4 simple rules cause all this chaos, what happens when the rules look a little more realistic?
+                    How can any system be stable? How does the universe get anything done?! There are plenty of good answers to those questions.
                 </p>
             </section>
         </div>
@@ -69,10 +77,23 @@
                 <h2>Publications</h2>
                 <ul> <!-- unordered list --> 
                     <li>
+                        <a href="https://openreview.net/forum?id=FOfXW5zn4h"> Out-of-distribution evaluations of channel agnostic masked autoencoders in fluorescence microscopy</a>
+                        <p> Hurry, C.J., et al. - Learning Meaningful Representations of Life (LMRL) Workshop at ICLR 2025. </p>
+                    </li>
+                    <li>
                         <a href="https://iopscience.iop.org/article/10.1088/1751-8121/ac9165/meta"> Dynamics of sparse Boolean networks with multi-node and self-interactions</a>
-                        <p> Hurry, C.J., Mozeika, A, Annibale, A - Jorunal of Physics A, 2022 </p>
+                        <p> Hurry, C.J., Mozeika, A, Annibale, A - Journal of Physics A, 2022 </p>
                     </li>
 
+                    <li>
+                        <a href="https://iopscience.iop.org/article/10.1088/1742-5468/ac50ae/meta"> Vaccination with partial transmission and social distancing on contact networks</a>
+                        <p> Hurry, C.J., Mozeika, A, Annibale, A - Journal of Statistical Mechanics, 2022 </p>
+                    </li>
+                    
+                    <li>
+                        <a href="https://link.springer.com/article/10.1007/s00285-021-01622-1">Modelling the interplay between the CD4/CD8 T-cell ratio and the expression of MHC-I in tumours</a>
+                        <p> Hurry, C.J., Mozeika, A, Annibale, A - Journal of Mathematical Biology, 2021 </p>
+                    </li>
                 </ul>
             </section>
         </div>
@@ -81,7 +102,7 @@
             <section id="cv">
                 <h2> CV </h2>
                 <p>If you would like to have a more complete picture of my qualifications and employment history, please download a copy of my cv:</p>
-                <a href="cv.pdf" download>Latest CV (PDF)</a>
+                <a href="assets/graduate CV 20:11:2025.pdf" download>Latest CV (PDF)</a>
             </section>
         </div>
         
