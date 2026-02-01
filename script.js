@@ -16,14 +16,14 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // cell sixe in pixels
-const cellSize = 5;
+const cellSize = 20;
 
 
 // How many cells fit page 
 const cols = Math.floor(canvas.width / cellSize);
 const rows = Math.floor(canvas.height / cellSize);
 
-const prob_init_alive = 0.1;
+const prob_init_alive = 0.15;
 
 // create grid as array of arrays 
 // each cell is alive (1) or dead (0)
@@ -107,13 +107,30 @@ function nextGeneration() {
     grid = newGrid; 
 }
 
-//Main loop - runs ever 200 milliseconds
-const update_every_ms = 200;
-function update() {
-    ctx.clearRect(0,0,canvas.width,canvas.height); 
-    nextGeneration();
+//Track how far we've scrolled since last generation update 
+let lastScrollY = window.scrollY;
+let scrollAccumulator = 0;
+const scrollThreshold = 50; //update generation every 50px of scroll
+
+function update(){
+    ctx.clearRect(0,0,canvas.width,canvas.height)
     drawGrid();
     drawCells();
 }
 
-setInterval(update,update_every_ms)
+window.addEventListener('scroll',function(){
+    let scrollDelta = window.scrollY - lastScrollY; 
+    lastScrollY = window.scrollY;
+
+    scrollAccumulator += Math.abs(scrollDelta); //works scrolling up and down
+
+    if (scrollAccumulator >= scrollThreshold) {
+        nextGeneration();
+        scrollAccumulator = 0; 
+    }
+
+    update(); 
+
+});
+
+update(); //draw initial state
