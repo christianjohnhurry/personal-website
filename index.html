@@ -25,8 +25,42 @@
         <div class="sticky-wrapper">
             <section id="about"> <!-- css can target with #about {...}, links can jump to this via href="#about" -->
                 <h2>About Me</h2> <!-- h2 means second level heading -->
-                <p>I'm CJ Hurry.</p>
+                <p>Hello my name is Christian Hurry, this is my personal website!</p>
                 <p>I'm a theoretical physicist by training. Machine learning engineer in biotech by trade. Improvisational comedian by night. Guitar player always. </p>
+                <p> I hold a PhD in Applied Mathematics from King's College London, specialising in the physics of disordered and complex systems. Broadly speaking, these are systems 
+                    comprised of many individual components, that each interact with a seemingly random subset of the system. Complex systems are known for displaying
+                complex system wide behaviour, even when the dynamics of each individual is quite simple. </p>
+                <p>The background of this webpage is Conway's Game of Life, a 
+                    famous example of a cellular automaton, mimicking evolution.</p>
+            </section>
+        </div>
+
+        <div class="sticky-wrapper">
+            <section id="gol">
+                <h2>The Game of Life</h2>
+                <p>
+                    The Game of Life works as follows:
+                    <ul>
+                        <li>
+                            The cellular automaton is defined by a grid of cells 
+                        </li>
+                        <li>
+                            Each cell is either alive (=1) or dead (=0)
+                        </li>
+                        <li>Underpopulation - cell with less than 2 neighbours dies </li>
+                        <li>Living - cell with 2 or 3 live neighbours lives on </li>
+                        <li>Overpopulation - Cell with more than 3 live neighbours dies </li>
+                        <li>Reproduction - a dead cell with 3 or 6 neighbours becomes alive </li>
+                    </ul>
+                    When the website is first loaded, we flip a weighted coin with a 30% chance of landing on heads
+                    for every cell in the grid. If it lands on heads, the cell is set to <i>alive</i>. As you scroll
+                    down the webpage, we follow the above rules, and update the grid to reflect the changes in the population.
+                </p>
+                <p>
+                    I have included a button to reset the game - but the cells are initialised with the same weighted coin, 
+                    and the chance of you finding the same initialisation are essentially zero. You will see how with each press of the 
+                    button, the population changes in ways that look different each time. 
+                </p>
             </section>
         </div>
         

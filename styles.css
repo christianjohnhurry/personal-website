@@ -81,7 +81,7 @@ h1 {
 section {
     position: sticky;
     top: 20vh;
-    padding: 40px;
+    padding: 30px;
     background-color: rgba(26,26,46,0.8);
     border-radius: 10px;
 }
@@ -112,4 +112,32 @@ section {
 h1, section {
     opacity: 0;
     transition: opacity 0.3s ease; /* animate transition smoothly over 0.3 seconds */
+}
+
+/* 
+Here we add detials to make the website work on mobile devices
+
+In particular, we check for width of screen, and adjust. 
+
+*/
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+        margin-top: 40vh;
+        padding: 20px 25px;
+    }
+
+    section {
+        padding: 20px; /* less padding, more room for text */
+    }
+
+    #sticky-wrapper {
+        height: 150vh; /* less scrolling between sections */
+    }
+
+    nav a {
+        margin: 0 8px; /* tigheter nav links */
+    }
+
 }
