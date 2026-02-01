@@ -40,13 +40,18 @@ a:visited {
     color: #9900ff
 }
 
+nav a {
+    margin: 0 15px;
+}
+
 nav {
     text-align: center;
     margin-bottom: 40px;
-}
-
-nav a {
-    margin: 0 15px;
+    position: sticky;
+    top: 0;
+    padding: 15px 0;
+    background-color: rgba(26,26,46,0.85);
+    z-index: 1;
 }
 
 #game-of-life {
