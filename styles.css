@@ -69,10 +69,15 @@ h1 {
     font-size: 3em;
     margin-top: 50vh;
     margin-bottom: 10px;
+    background-color: rgba(26,26,46,0.8);
+    padding: 30px 40px;
+    border-radius: 10px;
 }
 
 /* space between sections */
 section {
     margin-top: 100vh;
     padding-top: 20px;
+    background-color: rgba(26,26,46,0.8);
+    border-radius: 10px;
 }
