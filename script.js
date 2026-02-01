@@ -1,6 +1,12 @@
 // This JavaScript file is used to generate Conway's Game of Life as 
 // a background graphic
 
+//Rules
+// 1. Underpopulation - cell with less than 2 neighbours dies 
+// 2. Living - cell with 2 or 3 live neighbours lives on 
+// 3. Overpopulation - Cell with more than 3 live neighbours dies 
+// 4. Reproduction - a dead cell with 3 neighbours becomes alive 
+
 // get canvas element from html file, set up for drawing 
 const canvas = document.getElementById('game-of-life');
 const ctx = canvas.getContext('2d'); //drawing tool, 2d for 2d graphics
@@ -68,3 +74,39 @@ function drawCells() {
 }
 
 drawCells();
+
+
+//how many of 8 surrounding cells are alive?
+function countNeighbours(grid, x, y){
+    let count = 0;
+    for (let dy = -1; dy <=1; dy ++){
+        for (let dx = -1; dx <=1; dx ++){
+            if (dy ===0 && dx === 0) continue; // skip cell itself
+
+            //wrap around edges, so right edge interacts with left edge 
+            let ny = (y + dy + rows) % rows;
+            let nx = (x + dx + cols) % cols; 
+
+            count += grid[ny][nx];
+        }
+    }
+    return count;
+}
+
+
+
+function nextGeneration() {
+    let newGrid = [];
+    for (let y=0; y<rows; y++){
+        newGrid[y] = [];
+        for (let x=0; x<cols; x++){
+            let neighbours = countNeighbours(grid,x,y)
+            if (grid[y][x] ===1) {
+                newGrid[y][x] = (neighbours ===2 || neighbours===3) ? 1 : 0;
+            } else{
+                newGrid[y][x] = (neighbours===3) ? 1 : 0;
+            }
+            }
+        }
+        grid = newGrid; 
+    }
