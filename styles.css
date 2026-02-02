@@ -81,6 +81,7 @@ h1 {
 
 .sticky-wrapper{
     height: 200vh; /* wrapper is 2 screens tall - section sticks for 2 page scrolls */ 
+    margin-bottom: 200vh; /* add blank space between sections, to see the unobstructed graphic in between sections */
 }
 
 section {
