@@ -180,3 +180,16 @@ window.addEventListener('scroll',function(){
 
 update(); //draw initial state
 updateFade(); //set initial opacity so h1 visible on page load
+
+
+//Dynamically extend page height when scrolled to the bottom 
+//to create inifinite scroll effect
+
+window.addEventListener('scroll',function() {
+    const scrollBottom = window.scrollY + window.innerHeight;
+    const docHeight = document.body.scrollHeight;
+
+    if (docHeight - scrollBottom < 2000 ) {
+        document.body.style.minHeight = (docHeight + 1000) + 'px';
+    }
+});
