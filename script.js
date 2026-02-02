@@ -175,6 +175,7 @@ window.addEventListener('scroll',function(){
 
     update(); 
     updateFade();
+    updateScrollProgress();
 
 });
 
@@ -193,3 +194,30 @@ window.addEventListener('scroll',function() {
         document.body.style.minHeight = (docHeight + 1000) + 'px';
     }
 });
+
+// Scroll progress bar update code
+
+function updateScrollProgress() {
+    const wrappers = document.querySelectorAll('.sticky-wrapper')
+
+    wrappers.forEach(function(wrapper) {
+        const section = wrapper.querySelector('section');
+        const progressBar = section.querySelector('.scroll-progress-bar');
+
+
+        if (!progressBar) return;
+
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const wrapperHeight = wrapper.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        let progress = 0;
+        if (wrapperRect.top <= 0) {
+            progress = Math.abs(wrapperRect.top) / (wrapperHeight-viewportHeight);
+            progress = Math.min(progress,1); //cap at 100%
+        }
+
+        progressBar.style.width = (progress * 100) + '%'
+    
+    });
+}
