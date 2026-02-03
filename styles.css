@@ -183,4 +183,8 @@ In particular, we check for width of screen, and adjust.
         margin: 0 8px; /* tigheter nav links */
     }
 
+    .scroll-progress {
+        display: none;
+    }
+
 }
