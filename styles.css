@@ -41,7 +41,23 @@ a:visited {
 }
 
 nav a {
-    margin: 0 15px;
+    margin: 0 6px;
+    padding: 8px 16px;
+    border: 1px solid #6eb5ff;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #6eb5ff;
+    font-size: small;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover {
+    background-color: #6eb5ff;
+    color: #1a1a2e;
+}
+
+nav a:visited {
+    color: #6eb5ff;
 }
 
 nav {
@@ -193,7 +209,9 @@ In particular, we check for width of screen, and adjust.
     }
 
     nav a {
-        margin: 0 8px; /* tigheter nav links */
+        margin: 2px 4px;
+        padding: 6px 10px;
+        font-size: x-small;
     }
 
     .scroll-progress {
