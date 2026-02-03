@@ -114,6 +114,27 @@ section {
     color: #1a1a2e;
 }
 
+#competition-button {
+    position: fixed;
+    bottom: 40px;
+    right: 280px;
+    padding: 20px 40px;
+    background-color: rgba(26,26,46,0.85);
+    color: #66cc88;
+    border: 1px solid #66cc88;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: large;
+    z-index: 1;
+    display: none;
+}
+
+#competition-button:hover {
+    background-color: #66cc88;
+    color: #1a1a2e;
+}
+
 /* Sections begin invisible, java script changes opacity with scrolling */
 
 h1, section {
@@ -177,6 +198,14 @@ In particular, we check for width of screen, and adjust.
 
     .scroll-progress {
         display: none;
+    }
+
+    #competition-button {
+        right: auto;
+        left: 20px;
+        bottom: 40px;
+        padding: 15px 25px;
+        font-size: medium;
     }
 
 

@@ -25,6 +25,10 @@ const rows = Math.floor(canvas.height / cellSize);
 
 const prob_init_alive = 0.15;
 
+// Competition mode: two species compete for space
+let competitionMode = false;
+const GREEN_PROB = 0.15; // probability for green cells during sprinkle
+
 // create grid as array of arrays 
 // each cell is alive (1) or dead (0)
 let grid = [];
@@ -64,8 +68,11 @@ function drawCells() {
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++){
             if (grid[y][x] === 1) {
-                ctx.fillStyle = '#6eb5ff';
-                ctx.fillRect(x * cellSize, y*cellSize, cellSize, cellSize) // (x,y,width,height)
+                ctx.fillStyle = '#6eb5ff'; // blue species
+                ctx.fillRect(x * cellSize, y*cellSize, cellSize, cellSize)
+            } else if (grid[y][x] === 2) {
+                ctx.fillStyle = '#66cc88'; // green species
+                ctx.fillRect(x * cellSize, y*cellSize, cellSize, cellSize)
             }
         }
     }
@@ -73,38 +80,80 @@ function drawCells() {
 
 
 //how many of 8 surrounding cells are alive?
+// returns { blue, green, total } counts for each species
 function countNeighbours(grid, x, y){
-    let count = 0;
+    let blue = 0;
+    let green = 0;
     for (let dy = -1; dy <=1; dy ++){
         for (let dx = -1; dx <=1; dx ++){
             if (dy ===0 && dx === 0) continue; // skip cell itself
 
-            //wrap around edges, so right edge interacts with left edge 
+            //wrap around edges, so right edge interacts with left edge
             let ny = (y + dy + rows) % rows;
-            let nx = (x + dx + cols) % cols; 
+            let nx = (x + dx + cols) % cols;
 
-            count += grid[ny][nx];
+            if (grid[ny][nx] === 1) blue++;
+            else if (grid[ny][nx] === 2) green++;
         }
     }
-    return count;
+    return { blue: blue, green: green, total: blue + green };
 }
 
 
+
+// Competition rules: mutual predation between blue and green species
+function competitionRules(cell, n) {
+    // cell is 0 (dead), 1 (blue), or 2 (green)
+    // n is { blue, green, total }
+
+    if (cell === 0) {
+        // DEAD CELL - birth rules
+        // born as species with 3 or 6 own-kind neighbours
+        // if both qualify, cell stays dead (contested territory)
+        let blueBirth = (n.blue === 3 || n.blue === 6);
+        let greenBirth = (n.green === 3 || n.green === 6);
+
+        if (blueBirth && !greenBirth) return 1;
+        if (greenBirth && !blueBirth) return 2;
+        return 0; // contested or neither qualifies
+    }
+
+    // ALIVE CELL - survival and conversion rules
+    let ownCount = (cell === 1) ? n.blue : n.green;
+    let enemyCount = (cell === 1) ? n.green : n.blue;
+    let enemySpecies = (cell === 1) ? 2 : 1;
+
+    // Conversion: enemy has 3+ neighbours AND own kind has <2 (isolated and overwhelmed)
+    let converted = (enemyCount >= 3 && ownCount < 2);
+    if (converted) return enemySpecies;
+
+    // Survival: 2 or 3 neighbours of own kind
+    let survives = (ownCount === 2 || ownCount === 3);
+    if (survives) return cell;
+
+    return 0; // dies from underpopulation or overpopulation
+}
 
 function nextGeneration() {
     let newGrid = [];
     for (let y=0; y<rows; y++){
         newGrid[y] = [];
         for (let x=0; x<cols; x++){
-            let neighbours = countNeighbours(grid,x,y)
-            if (grid[y][x] ===1) {
-                newGrid[y][x] = (neighbours ===2 || neighbours===3) ? 1 : 0;
-            } else{
-                newGrid[y][x] = (neighbours===3 || neighbours ===6) ? 1 : 0;
+            let n = countNeighbours(grid,x,y)
+            if (!competitionMode) {
+                // Original HighLife rules (B36/S23) using total count
+                if (grid[y][x] ===1) {
+                    newGrid[y][x] = (n.total ===2 || n.total===3) ? 1 : 0;
+                } else{
+                    newGrid[y][x] = (n.total===3 || n.total ===6) ? 1 : 0;
+                }
+            } else {
+                // Competition mode: mutual predation rules
+                newGrid[y][x] = competitionRules(grid[y][x], n);
             }
         }
     }
-    grid = newGrid; 
+    grid = newGrid;
 }
 
 //Track how far we've scrolled since last generation update 
@@ -118,16 +167,55 @@ function update(){
     drawCells();
 }
 
-//Reseed: sprinkle random new cells 
+//Reseed: sprinkle random new cells
 document.getElementById('reseed-button').addEventListener('click',function(){
     for (let y=0; y <rows; y++){
         for (let x = 0; x <cols; x++){
-            if (Math.random() < prob_init_alive){
-                grid[y][x] = 1;
+            if (competitionMode) {
+                // In competition mode, randomly assign blue, green, or dead
+                let r = Math.random();
+                if (r < prob_init_alive) {
+                    grid[y][x] = 1; // blue
+                } else if (r < prob_init_alive + GREEN_PROB) {
+                    grid[y][x] = 2; // green
+                } else {
+                    grid[y][x] = 0; // dead
+                }
             } else {
-                grid[y][x] =0;
+                grid[y][x] = Math.random() < prob_init_alive ? 1 : 0;
             }
         }
+    }
+    update();
+});
+
+// Competition button: toggle competing species mode
+const competitionButton = document.getElementById('competition-button');
+const playSection = document.getElementById('play-the-gol');
+
+competitionButton.addEventListener('click', function(){
+    if (!competitionMode) {
+        // Activate: sprinkle green cells onto empty spaces
+        competitionMode = true;
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
+                if (grid[y][x] === 0 && Math.random() < GREEN_PROB) {
+                    grid[y][x] = 2;
+                }
+            }
+        }
+        this.textContent = 'Remove Competition';
+    } else {
+        // Deactivate: remove all green cells, revert to normal mode
+        competitionMode = false;
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
+                if (grid[y][x] === 2) {
+                    grid[y][x] = 0;
+                }
+            }
+        }
+        this.textContent = 'Add Competition';
     }
     update();
 });
@@ -173,9 +261,17 @@ window.addEventListener('scroll',function(){
         scrollAccumulator = 0; 
     }
 
-    update(); 
+    update();
     updateFade();
     updateScrollProgress();
+
+    // Show/hide competition button based on scroll position
+    var playRect = playSection.getBoundingClientRect();
+    if (playRect.top < window.innerHeight) {
+        competitionButton.style.display = 'block';
+    } else {
+        competitionButton.style.display = 'none';
+    }
 
 });
 
