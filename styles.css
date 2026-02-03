@@ -149,16 +149,17 @@ In particular, we check for width of screen, and adjust.
 @media (max-width: 600px) {
     h1 {
         font-size: 2em;
-        margin-top: 40vh;
+        margin-top: 10vh;
         padding: 20px 25px;
     }
 
     section {
-        padding: 20px; /* less padding, more room for text */
+        position: relative; /* normal flow, not sticky, in mobile view */
+        top: 0; /* reset offset used for sections */
     }
 
-    #sticky-wrapper {
-        height: 150vh; /* less scrolling between sections */
+    .sticky-wrapper {
+        height: 0.5vh; /* less scrolling between sections */
     }
 
     nav a {
