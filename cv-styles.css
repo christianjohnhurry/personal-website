@@ -107,10 +107,14 @@ h1 .subtitle {
 
 section {
     position: sticky;
-    top: 20vh;
+    top: 10vh; /* overridden by JS to center sections */
     padding: 30px;
     background-color: rgba(26, 26, 46, 0.8);
     border-radius: 10px;
+    width: fit-content;
+    min-width: 300px;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 /* CV entry styling */
@@ -206,6 +210,72 @@ section ul {
 
 section li {
     margin-bottom: 6px;
+}
+
+/* SIS controls */
+
+#sis-controls {
+    position: fixed;
+    bottom: 70px;
+    right: 30px;
+    display: none;
+    flex-direction: row;
+    gap: 12px;
+    background-color: rgba(26, 26, 46, 0.85);
+    border: 1px solid rgba(110, 181, 255, 0.3);
+    border-radius: 10px;
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+#sis-controls.visible {
+    display: flex;
+}
+
+.slider-group {
+    margin: 0;
+    min-width: 120px;
+}
+
+.slider-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: small;
+    color: #eaeaea;
+}
+
+.slider-group label span {
+    color: #6eb5ff;
+    font-weight: 600;
+}
+
+.slider-group input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(110, 181, 255, 0.3);
+    border-radius: 2px;
+    outline: none;
+}
+
+.slider-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #6eb5ff;
+    cursor: pointer;
+}
+
+.slider-group input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #6eb5ff;
+    cursor: pointer;
+    border: none;
 }
 
 /* Buttons */
@@ -309,7 +379,8 @@ h1, section {
     }
 
     .sticky-wrapper {
-        height: 0.5vh;
+        height: auto;
+        margin-bottom: 80vh;
     }
 
     nav a {
@@ -333,6 +404,17 @@ h1, section {
         left: 10px;
         bottom: 15px;
         padding: 8px 14px;
+    }
+
+    #sis-controls {
+        right: 10px;
+        bottom: 55px;
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .slider-group {
+        min-width: 90px;
     }
 
     #page-progress-container {

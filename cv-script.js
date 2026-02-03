@@ -1,5 +1,7 @@
-// Hexagonal Game of Life background for the CV page
-// Uses a hex grid where each cell has 6 neighbours instead of 8
+// Hexagonal SIS (Susceptible-Infected-Susceptible) model background
+// Each cell is either Susceptible (0) or Infected (1)
+// Infected neighbours transmit with probability beta
+// Infected cells recover with probability gamma
 
 const canvas = document.getElementById('hex-game-of-life');
 const ctx = canvas.getContext('2d');
@@ -10,7 +12,7 @@ canvas.height = window.innerHeight;
 // Hex sizing
 // Using flat-top hexagons
 // hexSize is the distance from center to vertex
-const hexSize = window.innerWidth < 600 ? 5 : 8;
+const hexSize = window.innerWidth < 600 ? 4 : 7;
 const hexWidth = hexSize * 2;
 const hexHeight = Math.sqrt(3) * hexSize;
 
@@ -20,14 +22,17 @@ const hexHeight = Math.sqrt(3) * hexSize;
 const cols = Math.ceil(canvas.width / (hexSize * 1.5)) + 1;
 const rows = Math.ceil(canvas.height / hexHeight) + 1;
 
-const prob_init_alive = 0.20;
+// SIS parameters
+const prob_init_infected = 0.01;
+let beta = 0.05;   // transmission probability per infected neighbour
+let gamma = 0.15;  // recovery probability per timestep
 
-// Create grid
+// Create grid: 0 = susceptible, 1 = infected
 let grid = [];
 for (let q = 0; q < cols; q++) {
     grid[q] = [];
     for (let r = 0; r < rows; r++) {
-        grid[q][r] = Math.random() < prob_init_alive ? 1 : 0;
+        grid[q][r] = Math.random() < prob_init_infected ? 1 : 0;
     }
 }
 
@@ -43,7 +48,7 @@ function hexToPixel(q, r) {
 }
 
 // Draw a single flat-top hexagon at pixel center (cx, cy)
-function drawHexagon(cx, cy, alive) {
+function drawHexagon(cx, cy, state) {
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
         let angle = Math.PI / 180 * (60 * i);
@@ -57,7 +62,7 @@ function drawHexagon(cx, cy, alive) {
     }
     ctx.closePath();
 
-    if (alive) {
+    if (state === 1) {
         ctx.fillStyle = '#6eb5ff';
         ctx.fill();
     }
@@ -70,8 +75,8 @@ function drawHexagon(cx, cy, alive) {
 // Get the 6 neighbours of a hex cell (offset coordinates, flat-top)
 // For flat-top hexagons with offset coords (odd-q offset):
 //   Even columns and odd columns have different neighbour offsets
-function getNeighbours(q, r) {
-    let neighbours = [];
+function getNeighbourCoords(q, r) {
+    let coords = [];
     let directions;
 
     if (q % 2 === 0) {
@@ -96,36 +101,38 @@ function getNeighbours(q, r) {
         // Wrap around edges
         let nq = (q + dq + cols) % cols;
         let nr = (r + dr + rows) % rows;
-        neighbours.push(grid[nq][nr]);
+        coords.push({ q: nq, r: nr });
     }
 
-    return neighbours;
+    return coords;
 }
 
-function countAliveNeighbours(q, r) {
-    let neighbours = getNeighbours(q, r);
+function countInfectedNeighbours(q, r) {
+    let coords = getNeighbourCoords(q, r);
     let count = 0;
-    for (let i = 0; i < neighbours.length; i++) {
-        if (neighbours[i] === 1) count++;
+    for (let i = 0; i < coords.length; i++) {
+        if (grid[coords[i].q][coords[i].r] === 1) count++;
     }
     return count;
 }
 
-// Hex Game of Life rules (B2/S34)
-// - Birth: dead cell with exactly 2 neighbours becomes alive
-// - Survival: alive cell with 3 or 4 neighbours survives
+// SIS dynamics
+// - Susceptible cell: infected with probability 1 - (1 - beta)^k
+//   where k is the number of infected neighbours
+// - Infected cell: recovers with probability gamma, returning to susceptible
 function nextGeneration() {
     let newGrid = [];
     for (let q = 0; q < cols; q++) {
         newGrid[q] = [];
         for (let r = 0; r < rows; r++) {
-            let alive = countAliveNeighbours(q, r);
-            if (grid[q][r] === 1) {
-                // Alive cell: survive with 3 or 4 neighbours
-                newGrid[q][r] = (alive === 3 || alive === 4) ? 1 : 0;
+            if (grid[q][r] === 0) {
+                // Susceptible: probability of infection from neighbours
+                let k = countInfectedNeighbours(q, r);
+                let probInfection = 1 - Math.pow(1 - beta, k);
+                newGrid[q][r] = Math.random() < probInfection ? 1 : 0;
             } else {
-                // Dead cell: birth with exactly 2 neighbours
-                newGrid[q][r] = (alive === 2) ? 1 : 0;
+                // Infected: recover with probability gamma
+                newGrid[q][r] = Math.random() < gamma ? 0 : 1;
             }
         }
     }
@@ -137,7 +144,7 @@ function drawGrid() {
     for (let q = 0; q < cols; q++) {
         for (let r = 0; r < rows; r++) {
             let pos = hexToPixel(q, r);
-            drawHexagon(pos.x, pos.y, grid[q][r] === 1);
+            drawHexagon(pos.x, pos.y, grid[q][r]);
         }
     }
 }
@@ -155,7 +162,7 @@ function update() {
 document.getElementById('reseed-button').addEventListener('click', function() {
     for (let q = 0; q < cols; q++) {
         for (let r = 0; r < rows; r++) {
-            grid[q][r] = Math.random() < prob_init_alive ? 1 : 0;
+            grid[q][r] = Math.random() < prob_init_infected ? 1 : 0;
         }
     }
     update();
@@ -255,6 +262,14 @@ window.addEventListener('scroll', function() {
     updateNavHighlight();
     updateScrollProgress();
 
+    // Show/hide SIS controls when SIS section is in view
+    var sisRect = sisSection.getBoundingClientRect();
+    if (sisRect.top < window.innerHeight) {
+        sisControls.classList.add('visible');
+    } else {
+        sisControls.classList.remove('visible');
+    }
+
     // Page progress
     var scrollPercentage = (window.scrollY / progressEndPoint) * 100;
     var clampedPercentage = Math.min(100, Math.max(0, scrollPercentage));
@@ -270,6 +285,43 @@ window.addEventListener('scroll', function() {
         document.body.style.minHeight = (docHeight + 1000) + 'px';
     }
 });
+
+// Slider controls for SIS parameters
+var sisControls = document.getElementById('sis-controls');
+var sisSection = document.getElementById('sis');
+var betaSlider = document.getElementById('beta-slider');
+var betaValue = document.getElementById('beta-value');
+var gammaSlider = document.getElementById('gamma-slider');
+var gammaValue = document.getElementById('gamma-value');
+
+betaSlider.addEventListener('input', function() {
+    beta = parseFloat(this.value);
+    betaValue.textContent = beta.toFixed(2);
+});
+
+gammaSlider.addEventListener('input', function() {
+    gamma = parseFloat(this.value);
+    gammaValue.textContent = gamma.toFixed(2);
+});
+
+// Set sticky top for each section based on its height
+// Centers shorter sections, keeps taller ones fully visible
+function setStickyPositions() {
+    var sections = document.querySelectorAll('section');
+    var vh = window.innerHeight;
+    var navHeight = document.querySelector('nav').offsetHeight;
+    var minTop = navHeight + 10; // don't overlap nav
+
+    sections.forEach(function(section) {
+        var sectionHeight = section.offsetHeight;
+        var idealTop = (vh - sectionHeight) / 2;
+        var top = Math.max(minTop, idealTop);
+        section.style.top = top + 'px';
+    });
+}
+
+setStickyPositions();
+window.addEventListener('resize', setStickyPositions);
 
 // Initial render
 update();

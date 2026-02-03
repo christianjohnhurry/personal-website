@@ -19,6 +19,7 @@
         <a href="#publications">Publications</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
+        <a href="#sis">SIS Model</a>
         <div id="page-progress-container">
             <div id="page-progress-bar"></div>
         </div>
@@ -226,9 +227,34 @@
             </section>
         </div>
 
+        <div class="sticky-wrapper">
+            <section id="sis">
+                <h2>A Model of Epidemics</h2>
+                <p>While you have scrolled through my CV, the background has been simualating an epidemic.</p>
+                <p>The SIS model is a popular mathematical model of infectious diseases.</p>
+                <p>Each hexagon is a person, either infected (light) or susceptible to infection (dark).</p>
+                <p>Reset the simulation and use the sliders that have appeared to change the infection and recovery rates and observe
+                    how the epidemic dynamics shift.</p>
+
+                <div class="scroll-progress">
+                    <div class="scroll-progress-bar"></div>
+                </div>
+            </section>
+        </div>
+
     </main>
 
-    <button id="reseed-button">Reset Game of Life</button>
+    <div id="sis-controls">
+        <div class="slider-group">
+            <label for="beta-slider">&beta;: <span id="beta-value">0.05</span></label>
+            <input type="range" id="beta-slider" min="0" max="0.5" step="0.01" value="0.05">
+        </div>
+        <div class="slider-group">
+            <label for="gamma-slider">&gamma;: <span id="gamma-value">0.15</span></label>
+            <input type="range" id="gamma-slider" min="0" max="1" step="0.01" value="0.15">
+        </div>
+    </div>
+    <button id="reseed-button">Reset SIS Model</button>
     <a href="assets/graduate CV 20:11:2025.pdf" download id="download-cv-button">Download CV (PDF)</a>
 
     <script src="cv-script.js"></script>
