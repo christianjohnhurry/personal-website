@@ -1,0 +1,355 @@
+body {
+    background-color: #1a1a2e;
+    color: #eaeaea;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+a {
+    color: #6eb5ff;
+}
+
+a:hover {
+    color: #a0d0ff;
+}
+
+a:visited {
+    color: #9900ff;
+}
+
+/* Navigation */
+
+nav a {
+    margin: 0 6px;
+    padding: 8px 16px;
+    border: 1px solid rgba(110, 181, 255, 0.3);
+    border-radius: 20px;
+    text-decoration: none;
+    color: rgba(110, 181, 255, 0.3);
+    font-size: small;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #6eb5ff;
+    color: #1a1a2e;
+    border-color: #6eb5ff;
+}
+
+nav a:visited {
+    color: rgba(110, 181, 255, 0.3);
+}
+
+nav a.active {
+    color: #6eb5ff;
+    border-color: #6eb5ff;
+}
+
+nav a.active:visited {
+    color: #6eb5ff;
+}
+
+nav {
+    text-align: center;
+    margin-bottom: 40px;
+    position: sticky;
+    top: 0;
+    padding: 15px 0;
+    background-color: rgba(26, 26, 46, 0.85);
+    z-index: 1;
+}
+
+/* Canvas background */
+
+#hex-game-of-life {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Hero heading */
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 20vh;
+    margin-bottom: 40px;
+    background-color: rgba(26, 26, 46, 0.8);
+    padding: 30px 40px;
+    border-radius: 10px;
+}
+
+h1 .subtitle {
+    display: block;
+    font-size: 0.4em;
+    font-weight: 400;
+    color: rgba(110, 181, 255, 0.6);
+    margin-top: 8px;
+    letter-spacing: 2px;
+}
+
+/* Sticky wrapper sections */
+
+.sticky-wrapper {
+    height: 200vh;
+    margin-bottom: 200vh;
+}
+
+section {
+    position: sticky;
+    top: 20vh;
+    padding: 30px;
+    background-color: rgba(26, 26, 46, 0.8);
+    border-radius: 10px;
+}
+
+/* CV entry styling */
+
+.cv-entry {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(110, 181, 255, 0.1);
+}
+
+.cv-entry:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.cv-entry h3 {
+    margin: 0 0 4px 0;
+    font-size: 1em;
+    font-weight: 600;
+    color: #eaeaea;
+}
+
+.cv-entry .date {
+    color: #6eb5ff;
+    font-weight: 400;
+    font-size: 0.9em;
+}
+
+.cv-entry .degree {
+    margin: 0 0 8px 0;
+    color: rgba(234, 234, 234, 0.7);
+    font-style: italic;
+}
+
+.cv-entry ul {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+}
+
+.cv-entry li {
+    margin-bottom: 4px;
+    font-size: 0.95em;
+    color: rgba(234, 234, 234, 0.85);
+}
+
+/* Publications list */
+
+.publications-list {
+    padding-left: 0;
+    list-style: none;
+}
+
+.publications-list li {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(110, 181, 255, 0.1);
+}
+
+.publications-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.publications-list li a,
+.publications-list li .pub-title {
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.publications-list li .pub-title {
+    color: #eaeaea;
+}
+
+.publications-list li p {
+    margin: 4px 0 0 0;
+    font-size: 0.85em;
+    color: rgba(234, 234, 234, 0.6);
+}
+
+/* Section headings */
+
+section h2 {
+    margin-top: 0;
+    color: #6eb5ff;
+    font-size: 1.4em;
+}
+
+section ul {
+    padding-left: 20px;
+}
+
+section li {
+    margin-bottom: 6px;
+}
+
+/* Buttons */
+
+#reseed-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 10px 20px;
+    background-color: rgba(26, 26, 46, 0.85);
+    color: #6eb5ff;
+    border: 1px solid #6eb5ff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: small;
+    z-index: 1;
+}
+
+#reseed-button:hover {
+    background-color: #6eb5ff;
+    color: #1a1a2e;
+}
+
+#download-cv-button {
+    position: fixed;
+    bottom: 30px;
+    right: 210px;
+    padding: 10px 20px;
+    background-color: rgba(26, 26, 46, 0.85);
+    color: #6eb5ff;
+    border: 1px solid #6eb5ff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: small;
+    z-index: 1;
+    text-decoration: none;
+}
+
+#download-cv-button:hover {
+    background-color: #6eb5ff;
+    color: #1a1a2e;
+}
+
+#download-cv-button:visited {
+    color: #6eb5ff;
+}
+
+#download-cv-button:visited:hover {
+    color: #1a1a2e;
+}
+
+/* Fade animations */
+
+h1, section {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Scroll progress bars */
+
+.scroll-progress {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    right: 30px;
+    height: 4px;
+    background-color: rgba(110, 181, 255, 0.3);
+    border-radius: 2px;
+}
+
+.scroll-progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #6eb5ff;
+    border-radius: 2px;
+    transition: width 0.1s ease;
+}
+
+#page-progress-container {
+    display: none;
+}
+
+#page-progress-bar {
+    display: none;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8em;
+        margin-top: 10vh;
+        padding: 20px 25px;
+    }
+
+    section {
+        position: relative;
+        top: 0;
+    }
+
+    .sticky-wrapper {
+        height: 0.5vh;
+    }
+
+    nav a {
+        margin: 2px 4px;
+        padding: 6px 10px;
+        font-size: x-small;
+    }
+
+    .scroll-progress {
+        display: none;
+    }
+
+    #reseed-button {
+        right: 10px;
+        bottom: 15px;
+        padding: 8px 14px;
+    }
+
+    #download-cv-button {
+        right: auto;
+        left: 10px;
+        bottom: 15px;
+        padding: 8px 14px;
+    }
+
+    #page-progress-container {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: rgba(110, 181, 255, 0.2);
+    }
+
+    #page-progress-bar {
+        display: block;
+        height: 100%;
+        width: 0%;
+        background-color: #6eb5ff;
+        transition: width 0.15s linear;
+    }
+}
