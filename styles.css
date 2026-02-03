@@ -43,20 +43,30 @@ a:visited {
 nav a {
     margin: 0 6px;
     padding: 8px 16px;
-    border: 1px solid #6eb5ff;
+    border: 1px solid rgba(110, 181, 255, 0.3);
     border-radius: 20px;
     text-decoration: none;
-    color: #6eb5ff;
+    color: rgba(110, 181, 255, 0.3);
     font-size: small;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 nav a:hover {
     background-color: #6eb5ff;
     color: #1a1a2e;
+    border-color: #6eb5ff;
 }
 
 nav a:visited {
+    color: rgba(110, 181, 255, 0.3);
+}
+
+nav a.active {
+    color: #6eb5ff;
+    border-color: #6eb5ff;
+}
+
+nav a.active:visited {
     color: #6eb5ff;
 }
 

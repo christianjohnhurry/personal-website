@@ -250,6 +250,53 @@ function updateFade() {
     });
 }
 
+// Highlight nav links when their section is in view
+const navLinks = document.querySelectorAll('nav a');
+
+// Map of nav links to the section IDs they should respond to
+// Most links map to a single section, but "Game of Life" maps to three
+const navSectionMap = {
+    '#gol': ['gol', 'gol2', 'gol3']
+};
+
+function updateNavHighlight() {
+    let vh = window.innerHeight;
+
+    navLinks.forEach(function(link) {
+        let href = link.getAttribute('href');
+        let sectionIds = navSectionMap[href] || [href.substring(1)];
+        let isActive = false;
+
+        if (sectionIds.length > 1) {
+            // Grouped sections: check the full range from first wrapper top
+            // to last wrapper bottom (includes gaps between them)
+            let firstWrapper = document.getElementById(sectionIds[0]).closest('.sticky-wrapper');
+            let lastWrapper = document.getElementById(sectionIds[sectionIds.length - 1]).closest('.sticky-wrapper');
+            let topRect = firstWrapper.getBoundingClientRect();
+            let bottomRect = lastWrapper.getBoundingClientRect();
+
+            if (topRect.top < vh && bottomRect.bottom > 0) {
+                isActive = true;
+            }
+        } else {
+            // Single section: check if it overlaps the viewport
+            let target = document.getElementById(sectionIds[0]);
+            if (target) {
+                let rect = target.getBoundingClientRect();
+                if (rect.top < vh && rect.bottom > 0) {
+                    isActive = true;
+                }
+            }
+        }
+
+        if (isActive) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
 window.addEventListener('scroll',function(){
     let scrollDelta = window.scrollY - lastScrollY; 
     lastScrollY = window.scrollY;
@@ -263,6 +310,7 @@ window.addEventListener('scroll',function(){
 
     update();
     updateFade();
+    updateNavHighlight();
     updateScrollProgress();
 
     // Show/hide competition button based on scroll position
@@ -277,6 +325,7 @@ window.addEventListener('scroll',function(){
 
 update(); //draw initial state
 updateFade(); //set initial opacity so h1 visible on page load
+updateNavHighlight(); //set initial nav highlight
 
 
 // Add progress bar for page under nav bar, update with scroll
