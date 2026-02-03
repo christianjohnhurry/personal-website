@@ -183,6 +183,20 @@ update(); //draw initial state
 updateFade(); //set initial opacity so h1 visible on page load
 
 
+// Add progress bar for page under nav bar, update with scroll
+const pageProgressBar = document.getElementById('page-progress-bar')
+const lastWrapper = document.querySelector('.sticky-wrapper:last-of-type');
+const progressEndPoint = lastWrapper.offsetTop + lastWrapper.offsetHeight - window.innerHeight;
+window.addEventListener('scroll',function() {
+
+
+    const scrollPercentage = ( window.scrollY / (progressEndPoint)) *100;
+    const clampedPercentage = Math.min(100, Math.max(0, scrollPercentage));
+    pageProgressBar.style.width = clampedPercentage + '%';
+
+});
+
+
 //Dynamically extend page height when scrolled to the bottom 
 //to create inifinite scroll effect
 
